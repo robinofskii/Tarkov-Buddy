@@ -21,7 +21,8 @@
       "@components/*": ["components/*"],
       "@environment/*": ["environments/*"],
       "@public/*": ["public/*"],
-      "@helpers/*": ["helpers/*"]
+      "@helpers/*": ["helpers/*"],
+      "@shared/*": ["shared/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
