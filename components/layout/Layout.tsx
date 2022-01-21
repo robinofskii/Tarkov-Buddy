@@ -1,3 +1,5 @@
+import { Container } from '@mui/material';
+
 import Footer from './Footer';
 import Navbar from './Navbar';
 
@@ -9,8 +11,7 @@ export default function Layout({ children }: Props) {
   return (
     <>
       <Navbar />
-      <a href="#">This is a Link</a>
-      <main>{children}</main>
+      <Container>{children}</Container>
       <Footer />
     </>
   );

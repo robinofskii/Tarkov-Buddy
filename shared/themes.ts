@@ -1,26 +1,95 @@
-export const defaultTheme = {
-  colors: {
-    primary: '#A09BE7',
-    secondary: '#896A67',
-    success: '#86B828',
-    info: '#48A9A6',
-    danger: '#A22C29',
-    text: '#FBFBFB',
-    background: '#171123',
+import { ThemeOptions } from '@mui/material/styles';
+
+export const darkThemeOptions: ThemeOptions = {
+  palette: {
+    type: 'dark',
+    primary: {
+      main: '#ff8a00',
+    },
+    secondary: {
+      main: '#ff8a00',
+    },
+    info: {
+      main: '#41a0ff',
+    },
+    warning: {
+      main: '#ffea00',
+    },
+    error: {
+      main: '#ff0800',
+    },
   },
-  fonts: {
-    heading: 'Cairo',
-    body: 'Karma',
+  props: {
+    MuiAppBar: {
+      color: 'transparent',
+    },
   },
-  styles: {
-    global: {
-      'html, body': {
-        color: 'text',
-        lineHeight: 'tall',
-      },
-      a: {
-        color: 'primary',
-      },
+  typography: {
+    h1: {
+      fontFamily: 'Cairo',
+    },
+    fontFamily: 'Cairo',
+    subtitle1: {
+      fontFamily: 'Cairo',
+    },
+    subtitle2: {
+      fontFamily: 'Cairo',
+    },
+    body1: {
+      fontFamily: 'Cairo',
+    },
+    body2: {
+      fontFamily: 'Cairo',
+    },
+    caption: {
+      fontFamily: 'Cairo',
+    },
+  },
+};
+
+export const lightThemeOptions: ThemeOptions = {
+  palette: {
+    type: 'light',
+    primary: {
+      main: '#ff8a00',
+    },
+    secondary: {
+      main: '#ff8a00',
+    },
+    info: {
+      main: '#41a0ff',
+    },
+    warning: {
+      main: '#ffea00',
+    },
+    error: {
+      main: '#ff0800',
+    },
+  },
+  props: {
+    MuiAppBar: {
+      color: 'transparent',
+    },
+  },
+  typography: {
+    h1: {
+      fontFamily: 'Cairo',
+    },
+    fontFamily: 'Cairo',
+    subtitle1: {
+      fontFamily: 'Cairo',
+    },
+    subtitle2: {
+      fontFamily: 'Cairo',
+    },
+    body1: {
+      fontFamily: 'Cairo',
+    },
+    body2: {
+      fontFamily: 'Cairo',
+    },
+    caption: {
+      fontFamily: 'Cairo',
     },
   },
 };

@@ -1,20 +1,34 @@
 import type { AppProps } from 'next/app';
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
 
-import { defaultTheme } from '@shared/themes';
+import { CacheProvider, EmotionCache } from '@emotion/react';
+import { ThemeProvider, CssBaseline, createTheme } from '@mui/material';
+
+import createEmotionCache from '../utility/createEmotionCache';
+
+import Layout from '@components/layout/Layout';
+import { darkThemeOptions } from '@shared/themes';
+
 import '@fontsource/cairo/400.css';
 import '@fontsource/karma/600.css';
-import Layout from '@components/layout/Layout';
 
-function MyApp({ Component, pageProps }: AppProps) {
-  const theme = extendTheme({ defaultTheme });
+interface MyAppProps extends AppProps {
+  emotionCache?: EmotionCache;
+}
 
+const clientSideEmotionCache = createEmotionCache();
+
+const darkTheme = createTheme(darkThemeOptions);
+
+function MyApp({ Component, pageProps, emotionCache = clientSideEmotionCache }: MyAppProps) {
   return (
-    <ChakraProvider theme={theme}>
-      <Layout>
-        <Component {...pageProps} />
-      </Layout>
-    </ChakraProvider>
+    <CacheProvider value={emotionCache}>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <Layout>
+          <Component {...pageProps} />
+        </Layout>
+      </ThemeProvider>
+    </CacheProvider>
   );
 }
 

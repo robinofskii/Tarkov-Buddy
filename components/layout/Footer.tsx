@@ -1,19 +1,44 @@
-import { Center, Flex, Text } from '@chakra-ui/react';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+import Link from '@mui/material/Link';
+import Typography from '@mui/material/Typography';
 
-export default function NavBar() {
+function Copyright() {
   return (
-    <>
-      <Flex>
-        <Center w="100px" bg="background">
-          <Text>Footer 1</Text>
-        </Center>
-        <Center bg="background">
-          <Text>Footer 2</Text>
-        </Center>
-        <Center flex="1" bg="background">
-          <Text>Footer 3</Text>
-        </Center>
-      </Flex>
-    </>
+    <Typography variant="body2" color="text.secondary">
+      {'Copyright © '}
+      <Link color="inherit" href="#">
+        Tarkov-Buddy
+      </Link>{' '}
+      {new Date().getFullYear()}
+      {'.'}
+    </Typography>
+  );
+}
+
+export default function Footer() {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '87vh',
+      }}
+    >
+      <Box
+        component="footer"
+        sx={{
+          py: 3,
+          px: 2,
+          mt: 'auto',
+          backgroundColor: (theme) =>
+            theme.palette.mode === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+        }}
+      >
+        <Container maxWidth="sm">
+          <Copyright />
+        </Container>
+      </Box>
+    </Box>
   );
 }
