@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { BaseSyntheticEvent, useState } from 'react';
 
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
@@ -16,7 +16,7 @@ const pages = ['Keytool', 'Quests', 'Ammo', 'Items'];
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
 
-  const handleOpenNavMenu = (event: unknown) => {
+  const handleOpenNavMenu = (event: BaseSyntheticEvent) => {
     setAnchorElNav(event.currentTarget);
   };
 
