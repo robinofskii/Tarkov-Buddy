@@ -1,6 +1,5 @@
 import { Container } from '@mui/material';
 
-import Footer from './Footer';
 import Navbar from './Navbar';
 
 type Props = {
@@ -12,7 +11,6 @@ export default function Layout({ children }: Props) {
     <>
       <Navbar />
       <Container>{children}</Container>
-      <Footer />
     </>
   );
 }
