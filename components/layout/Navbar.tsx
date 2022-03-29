@@ -10,11 +10,34 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import MenuIcon from '@mui/icons-material/Menu';
+import { useRouter } from 'next/router';
 
-const pages = ['Keytool', 'Quests', 'Ammo', 'Items'];
+const routes = [
+  {
+    id: 1,
+    path: '/keytool',
+    name: 'Keytool',
+  },
+  {
+    id: 2,
+    path: '/quests',
+    name: 'Quests',
+  },
+  {
+    id: 3,
+    path: '/ammo',
+    name: 'Ammo',
+  },
+  {
+    id: 4,
+    path: '/items',
+    name: 'Items',
+  },
+];
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = useState(null);
+  const router = useRouter();
 
   const handleOpenNavMenu = (event: BaseSyntheticEvent) => {
     setAnchorElNav(event.currentTarget);
@@ -66,9 +89,15 @@ const ResponsiveAppBar = () => {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+              {routes.map((route) => (
+                <MenuItem
+                  key={route.id}
+                  onClick={() => {
+                    router.push(route.path);
+                  }}
+                  disabled={router.pathname === route.path}
+                >
+                  <Typography textAlign="center">{route.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -82,13 +111,16 @@ const ResponsiveAppBar = () => {
             Tarkov Buddy
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            {pages.map((page) => (
+            {routes.map((route) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={route.id}
+                onClick={() => {
+                  router.push(route.path);
+                }}
                 sx={{ my: 2, color: 'white', display: 'block' }}
+                disabled={router.pathname === route.path}
               >
-                {page}
+                {route.name}
               </Button>
             ))}
           </Box>
