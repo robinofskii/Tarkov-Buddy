@@ -1,0 +1,170 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Quest {
+  id           Int          @id @default(autoincrement())
+  requireLevel Level        @relation(fields: [levelId], references: [id])
+  requireQuest Int?
+  giver        Trader       @relation("giver", fields: [giverId], references: [id])
+  turnin       Trader       @relation("turnin", fields: [turnInId], references: [id])
+  title        String
+  wiki         String
+  exp          Int
+  unlocks      Item[]
+  reputation   Reputation[]
+  objectives   Objective[]
+  giverId      Int
+  turnInId     Int
+  Trader       Trader?      @relation(fields: [traderId], references: [id])
+  traderId     Int?
+  levelId      Int
+}
+
+model Reputation {
+  id       Int     @id @default(autoincrement())
+  questId  Int?
+  Quest    Quest?  @relation(fields: [questId], references: [id])
+  trader   Trader  @relation(fields: [traderId], references: [id])
+  rep      Decimal
+  traderId Int
+}
+
+model Objective {
+  id       Int           @id @default(autoincrement())
+  questId  Int?
+  Quest    Quest?        @relation(fields: [questId], references: [id])
+  type     ObjectiveType
+  target   String
+  number   Int
+  location Map           @relation(fields: [mapId], references: [id])
+  mapId    Int
+}
+
+model Trader {
+  id            Int          @id @default(autoincrement())
+  name          String
+  wiki          String
+  description   String
+  currencies    Currency[]
+  salesCurrency Currency
+  loyalty       Loyalty[]
+  Reputation    Reputation[]
+  QuestGiver    Quest[]      @relation("giver")
+  QuestTurnIn   Quest[]      @relation("turnin")
+  Quest         Quest[]
+}
+
+model Loyalty {
+  id                 Int     @id @default(autoincrement())
+  level              Int
+  requiredLevel      Int
+  requiredReputation Decimal
+  requiredSales      Decimal
+  Trader             Trader? @relation(fields: [traderId], references: [id])
+  traderId           Int?
+}
+
+model Map {
+  id                Int         @id @default(autoincrement())
+  wiki              String
+  name              String
+  description       String
+  enemies           Enemy[]
+  Objective         Objective[]
+  raidDurationDay   Int
+  raidDurationNight Int
+}
+
+model Ammo {
+  id              Int        @id @default(autoincrement())
+  item            Item       @relation(fields: [itemId], references: [id])
+  itemId          Int
+  name            String
+  shortName       String
+  weight          Decimal
+  caliber         String
+  stackMaxSize    Int
+  tracer          Boolean
+  tracerColor     String
+  ammoType        AmmoType
+  projectileCount Int
+  ballistics      Ballistics @relation(fields: [ballisticsId], references: [id])
+  ballisticsId    Int
+}
+
+model Ballistics {
+  id                  Int     @id @default(autoincrement())
+  damage              Int
+  armorDamage         Int
+  fragmentationChance Decimal
+  penetrationChance   Decimal
+  ricochetChance      Decimal
+  penetrationPower    Int
+  accuracy            Int
+  recoil              Int
+  initialSpeed        Int
+  Ammo                Ammo[]
+}
+
+model Item {
+  id        Int    @id @default(autoincrement())
+  name      String
+  shortName String
+  wiki      String
+  Quest     Quest? @relation(fields: [questId], references: [id])
+  questId   Int?
+  Ammo      Ammo[]
+}
+
+model Level {
+  id    Int     @id @default(autoincrement())
+  exp   Int
+  level Int
+  group String
+  Quest Quest[]
+}
+
+enum ObjectiveType {
+  Kill
+  Collect
+  Pickup
+  Key
+  Place
+  Mark
+  Find
+  Reputation
+}
+
+enum AmmoType {
+  Buckshot
+  Bullet
+  Grenade
+}
+
+enum Currency {
+  RUB
+  USD
+  EUR
+}
+
+enum Enemy {
+  Scavs
+  Tagilla
+  Cultists
+  Reshala
+  Shturman
+  Sanitar
+  Killa
+  Raiders
+  Glukhar
+  Rogues
+}
